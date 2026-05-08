@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Audit {
+  id                  String   @id @default(cuid())
+  shareId             String   @unique
+  tools               Json     // Array of tool objects with plan, spend, seats
+  recommendations     Json     // Array of recommendation objects
+  totalMonthlySavings Float    @default(0)
+  totalAnnualSavings  Float    @default(0)
+  aiSummary           String?  @db.Text
+  teamSize            Int?
+  primaryUseCase      String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  leads Lead[]
+
+  @@map("audits")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  email     String
+  company   String?
+  role      String?
+  teamSize  String?
+  auditId   String?
+  createdAt DateTime @default(now())
+
+  audit Audit? @relation(fields: [auditId], references: [id])
+
+  @@map("leads")
+}
