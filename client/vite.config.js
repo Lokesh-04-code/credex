@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // Proxy /api requests to the Express server during development
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'https://credex-fil5.onrender.com/',
         changeOrigin: true,
       },
     },
