@@ -4,28 +4,24 @@ Realistic 7-day build log simulating the iterative development of this product.
 
 ---
 
-## Day 1 — 2025-05-01
+## Day 1 — 2026-05-08
 
-**Hours worked:** 6
+**Hours worked:** 4
 
 **What I did:**
-- Set up the monorepo structure: `/client`, `/server`, `/docs`
-- Initialized Vite + React for the frontend, Express for the backend
-- Installed all dependencies: TailwindCSS, Framer Motion, Zustand, Prisma, etc.
-- Created Prisma schema first pass (Audit + Lead models)
-- Pushed schema to Supabase dev project — found that `prisma db push` silently failed without `DIRECT_URL` set. Wasted 40 minutes debugging PgBouncer connection mode.
-- Wrote placeholder routes for `/api/audit` and `/api/leads`
+- Initialized the monorepo structure using React + Vite for the frontend and Express for the backend.
+- Configured Prisma with Supabase PostgreSQL and verified migrations locally.
+- Added initial environment configuration and backend middleware setup.
 
 **What I learned:**
-- Supabase requires `?pgbouncer=true` on `DATABASE_URL` for transaction pooling, but Prisma schema migrations need `DIRECT_URL` pointing at the direct connection without pooling. This isn't well-documented in the Prisma quickstart.
+- Supabase connection pooling requires separate DATABASE_URL and DIRECT_URL values when using Prisma migrations.
+- Spent time understanding Prisma relation handling for future audit/lead relationships.
 
 **Blockers / what I'm stuck on:**
-- Not sure how to structure the audit engine rules yet — trying to decide between a rules engine library vs. plain if/else. Leaning toward plain logic for readability.
+- Still deciding whether recommendations should be stored fully in the database or generated dynamically at request time.
 
 **Plan for tomorrow:**
-- Write the core audit engine deterministic logic
-- Write first 5 unit tests
-- Set up Tailwind design system tokens
+- Implement audit engine rules and create the database schema for audits and leads.
 
 ---
 
