@@ -42,7 +42,9 @@ if (process.env.NODE_ENV !== 'test') {
 // ── Body Parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: false }));
-
+app.get("/", (req, res) => {
+  res.send("AI Spend Audit API is running");
+});
 // ── Rate Limiting ─────────────────────────────────────────────────────────────
 app.use('/api', generalLimiter);
 
