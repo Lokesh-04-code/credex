@@ -24,12 +24,12 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.95.1",
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^5.22.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.1",
+    "groq-sdk": "^1.1.2",
     "helmet": "^8.1.0",
     "morgan": "^1.10.1",
     "nanoid": "^3.3.12",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "jest": "^30.4.1",
     "nodemon": "^3.1.14",
-    "prisma": "^7.8.0",
+    "prisma": "^5.22.0",
     "supertest": "^7.2.2"
   }
 }

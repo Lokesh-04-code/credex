@@ -10,15 +10,15 @@
  * See PROMPTS.md for full prompt history, rationale, and fallback logic.
  */
 
-const Anthropic = require('@anthropic-ai/sdk');
+const Groq = require('groq-sdk');
 
-let anthropic = null;
+let groq = null;
 
 function getClient() {
-  if (!anthropic && process.env.ANTHROPIC_API_KEY) {
-    anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  if (!groq && process.env.GROQ_API_KEY) {
+    groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
   }
-  return anthropic;
+  return groq;
 }
 
 /**
@@ -77,13 +77,13 @@ function generateFallbackSummary(auditData) {
 }
 
 /**
- * Main function — attempts Anthropic, falls back to template.
+ * Main function — attempts Groq, falls back to template.
  */
 async function generateAiSummary(auditData) {
   const client = getClient();
 
   if (!client) {
-    console.warn('[aiSummary] Anthropic API key not configured — using fallback template');
+    console.warn('[aiSummary] Groq API key not configured — using fallback template');
     return {
       summary: generateFallbackSummary(auditData),
       source: 'fallback',
@@ -93,19 +93,19 @@ async function generateAiSummary(auditData) {
   try {
     const prompt = buildPrompt(auditData);
 
-    const message = await client.messages.create({
-      model: 'claude-3-5-haiku-20241022',
+    const completion = await client.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       max_tokens: 256,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const summary = message.content[0]?.text?.trim();
+    const summary = completion.choices[0]?.message?.content?.trim();
 
-    if (!summary) throw new Error('Empty response from Anthropic');
+    if (!summary) throw new Error('Empty response from Groq');
 
-    return { summary, source: 'anthropic' };
+    return { summary, source: 'groq' };
   } catch (error) {
-    console.error('[aiSummary] Anthropic API error:', error.message);
+    console.error('[aiSummary] Groq API error:', error.message);
     return {
       summary: generateFallbackSummary(auditData),
       source: 'fallback',
