@@ -29,7 +29,7 @@ Realistic 7-day build log simulating the iterative development of this product.
 - implementing the logo  designa and animations
 
 ---
-## Day 1 — 2026-05-09
+## Day 2 — 2026-05-09
 
 **Hours worked:** 5
 
