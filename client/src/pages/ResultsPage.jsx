@@ -17,6 +17,7 @@ import {
 import {
   SEVERITY_CONFIG, RECOMMENDATION_TYPE_LABELS, HIGH_SAVINGS_THRESHOLD
 } from '../constants/tools';
+import GlassCard from '../components/GlassCard';
 
 // ─── Savings Summary Card ────────────────────────────────────────────────────
 
@@ -24,7 +25,7 @@ function SavingsSummary({ monthly, annual, recommendationCount }) {
   const severity = getSavingsSeverity(monthly);
 
   return (
-    <div className="glass-card p-8 text-center mb-8 shadow-glow relative overflow-hidden">
+    <GlassCard className="p-8 text-center mb-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-brand-500/5 to-transparent pointer-events-none" />
       <div className="relative">
         <div className="text-sm font-medium text-slate-400 mb-2">Potential Monthly Savings</div>
@@ -44,7 +45,7 @@ function SavingsSummary({ monthly, annual, recommendationCount }) {
           {recommendationCount} recommendation{recommendationCount !== 1 ? 's' : ''} found
         </div>
       </div>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -120,14 +121,14 @@ function LeadCaptureForm({ auditId, onSuccess }) {
   };
 
   return (
-    <div className="glass-card p-6 border-brand-500/30 shadow-glow-sm">
+    <GlassCard className="p-6 border-brand-500/30">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-9 h-9 rounded-xl bg-brand-600/20 flex items-center justify-center">
           <Mail className="w-5 h-5 text-brand-400" />
         </div>
         <div>
-          <h3 className="font-semibold text-white">Get this report in your inbox</h3>
-          <p className="text-xs text-slate-500">Plus a shareable link for your team</p>
+          <h3 className="font-semibold text-white">Notify me when new optimizations apply to my stack</h3>
+          <p className="text-xs text-slate-500">We'll email you if better options become available</p>
         </div>
       </div>
 
@@ -180,9 +181,9 @@ function LeadCaptureForm({ auditId, onSuccess }) {
           className="btn-primary w-full"
         >
           {submitting ? (
-            <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending…</>
+            <><div className="spinner w-4 h-4" /> Sending...</>
           ) : (
-            <><Mail className="w-4 h-4" /> Email Me My Report</>
+            <><Mail className="w-4 h-4" /> Notify Me</>
           )}
         </button>
 
@@ -190,7 +191,7 @@ function LeadCaptureForm({ auditId, onSuccess }) {
           No spam. Unsubscribe anytime. We use Resend for delivery.
         </p>
       </form>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -238,7 +239,7 @@ export default function ResultsPage() {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-2 border-brand-500/30 border-t-brand-500 rounded-full animate-spin mx-auto mb-4" />
+          <div className="spinner w-12 h-12 mx-auto mb-4" />
           <p className="text-slate-400">Loading your audit results…</p>
         </div>
       </div>
@@ -263,7 +264,7 @@ export default function ResultsPage() {
 
   const { recommendations = [], totalMonthlySavings = 0, totalAnnualSavings = 0, aiSummary, createdAt } = data;
   const isHighSavings = totalMonthlySavings >= HIGH_SAVINGS_THRESHOLD;
-  const isAlreadyEfficient = totalMonthlySavings < 10;
+  const isLowSavings = totalMonthlySavings < 100;
   const shareUrl = buildShareUrl(shareId);
 
   return (
@@ -288,14 +289,17 @@ export default function ResultsPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
               id="copy-share-btn"
               onClick={handleCopyShare}
+              whileTap={{ scale: 0.95 }}
+              animate={copied ? { scale: [1, 1.04, 1], rotate: [0, -1, 1, 0] } : { scale: 1, rotate: 0 }}
+              transition={{ duration: 0.28 }}
               className="btn-ghost text-sm py-2 px-4"
             >
               {copied ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
               {copied ? 'Copied!' : 'Share'}
-            </button>
+            </motion.button>
             <Link
               to="/audit"
               id="new-audit-btn"
@@ -316,7 +320,7 @@ export default function ResultsPage() {
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white">
-              {isAlreadyEfficient
+              {isLowSavings
                 ? 'Your AI stack is already well optimized 👏'
                 : `We found ${formatCurrency(totalMonthlySavings)}/month in savings`}
             </h1>
@@ -361,14 +365,14 @@ export default function ResultsPage() {
                   ))}
                 </div>
               ) : (
-                <div className="glass-card p-8 text-center">
+                <GlassCard className="p-8 text-center">
                   <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto mb-3" />
                   <h3 className="text-lg font-semibold text-white mb-2">Already well-optimized!</h3>
                   <p className="text-slate-400 text-sm">
                     Based on your reported plans and spend, your AI tool stack is appropriately configured.
                     Revisit this audit when your team size or tool usage changes.
                   </p>
-                </div>
+                </GlassCard>
               )}
 
               {/* High savings Credex CTA */}
@@ -425,15 +429,15 @@ export default function ResultsPage() {
               </AnimatePresence>
 
               {leadCaptured && (
-                <div className="glass-card p-5 text-center">
+                <GlassCard className="p-5 text-center">
                   <CheckCircle className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
                   <p className="text-sm text-slate-300 font-medium">Report sent!</p>
                   <p className="text-xs text-slate-500">Check your inbox</p>
-                </div>
+                </GlassCard>
               )}
 
               {/* Share card */}
-              <div className="glass-card p-5">
+              <GlassCard className="p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Share2 className="w-4 h-4 text-brand-400" />
                   <span className="text-sm font-semibold text-white">Share This Audit</span>
@@ -444,15 +448,18 @@ export default function ResultsPage() {
                 <div className="flex items-center gap-2 bg-surface-900 rounded-lg p-2 text-xs text-slate-400 font-mono break-all mb-3">
                   {shareUrl}
                 </div>
-                <button
+                <motion.button
                   id="sidebar-copy-btn"
                   onClick={handleCopyShare}
+                  whileTap={{ scale: 0.95 }}
+                  animate={copied ? { scale: [1, 1.03, 1], rotate: [0, 1, -1, 0] } : { scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.28 }}
                   className="btn-ghost w-full text-sm py-2.5"
                 >
                   {copied ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                   {copied ? 'Copied!' : 'Copy Share Link'}
-                </button>
-              </div>
+                </motion.button>
+              </GlassCard>
 
               {/* Start over */}
               <Link to="/audit" className="btn-ghost w-full text-sm py-2.5 block text-center">

@@ -82,7 +82,7 @@ export default function LandingPage() {
         <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
-              <Zap className="w-4 h-4 text-white" />
+              <Zap className="w-4 h-4 text-white animate-spin-slow" />
             </div>
             <span className="font-bold text-white text-lg">AI Spend Audit</span>
           </div>
@@ -96,10 +96,12 @@ export default function LandingPage() {
         </nav>
 
         {/* Hero */}
-        <section className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-24 text-center">
+        <section className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-24 text-center overflow-hidden">
+          <div className="absolute inset-x-4 top-8 h-72 rounded-full bg-gradient-to-r from-violet-600/30 to-brand-500/10 blur-3xl pointer-events-none" />
           <motion.div
             initial="hidden"
             animate="visible"
+            className="relative"
             variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           >
             <motion.div variants={fadeUp} className="mb-6">
