@@ -15,6 +15,8 @@ Realistic 7-day build log simulating the iterative development of this product.
 - Initialized the monorepo structure using React + Vite for the frontend and Express for the backend.
 - Configured Prisma with Supabase PostgreSQL and verified migrations locally.
 - Added initial environment configuration and backend middleware setup.
+- also developed the audit engine rules.
+-built the basic level project
 
 **What I learned:**
 - Supabase connection pooling requires separate DATABASE_URL and DIRECT_URL values when using Prisma migrations.
@@ -24,6 +26,25 @@ Realistic 7-day build log simulating the iterative development of this product.
 - Still deciding whether recommendations should be stored fully in the database or generated dynamically at request time.
 
 **Plan for tomorrow:**
-- Implement audit engine rules and create the database schema for audits and leads.
+- implementing the logo  designa and animations
+
+---
+## Day 1 — 2026-05-09
+
+**Hours worked:** 5
+
+**What I did:**
+-logo design completed with adding the text and animation effects
+-set up 
+
+**What I learned:**
+-logo adding to the website  with some waiting time.
+
+**Blockers / what I'm stuck on:**
+- i wasted a lot time  today on logo integration.
+
+**Plan for tomorrow:**
+- make website more responsive
+- add more features.
 
 ---
