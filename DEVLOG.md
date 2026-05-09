@@ -42,9 +42,11 @@ Realistic 7-day build log simulating the iterative development of this product.
 
 **Blockers / what I'm stuck on:**
 - i wasted a lot time  today on logo integration.
+- intially i kept the limit in apis this where i stuck. 
 
 **Plan for tomorrow:**
 - make website more responsive
 - add more features.
+- try to implement better audit engine
 
 ---
