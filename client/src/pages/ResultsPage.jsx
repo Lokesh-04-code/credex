@@ -20,7 +20,7 @@ import {
 import GlassCard from '../components/GlassCard';
 import StackSaverLogo from '../components/StackSaverLogo';
 
-// â”€â”€â”€ Savings Summary Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Savings Summary Card
 
 function SavingsSummary({ monthly, annual, recommendationCount }) {
   const severity = getSavingsSeverity(monthly);
@@ -50,7 +50,7 @@ function SavingsSummary({ monthly, annual, recommendationCount }) {
   );
 }
 
-// â”€â”€â”€ Recommendation Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Recommendation Card
 
 function RecommendationCard({ rec, index }) {
   const severityConfig = SEVERITY_CONFIG[rec.severity] || SEVERITY_CONFIG.low;
@@ -83,13 +83,13 @@ function RecommendationCard({ rec, index }) {
         <div>
           <div className="text-xs text-slate-600 mb-1">Monthly Savings</div>
           <div className="font-semibold text-emerald-400">
-            {rec.estimatedMonthlySavings > 0 ? `âˆ’${formatCurrency(rec.estimatedMonthlySavings)}` : '-'}
+            {rec.estimatedMonthlySavings > 0 ? `-${formatCurrency(rec.estimatedMonthlySavings)}` : '-'}
           </div>
         </div>
         <div>
           <div className="text-xs text-slate-600 mb-1">Annual Savings</div>
           <div className="font-semibold text-emerald-400">
-            {rec.estimatedAnnualSavings > 0 ? `âˆ’${formatCurrency(rec.estimatedAnnualSavings)}` : '-'}
+            {rec.estimatedAnnualSavings > 0 ? `-${formatCurrency(rec.estimatedAnnualSavings)}` : '-'}
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ function RecommendationCard({ rec, index }) {
   );
 }
 
-// â”€â”€â”€ Lead Capture Form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Lead Capture Form
 
 function LeadCaptureForm({ auditId, onSuccess }) {
   const [formData, setFormData] = useState({ email: '', company: '', role: '', teamSize: '' });
@@ -196,7 +196,7 @@ function LeadCaptureForm({ auditId, onSuccess }) {
   );
 }
 
-// â”€â”€â”€ Results Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Results Page
 
 export default function ResultsPage() {
   const { shareId } = useParams();
@@ -235,19 +235,19 @@ export default function ResultsPage() {
     }
   };
 
-  // â”€â”€ Loading skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Loading skeleton
   if (loading) {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center">
         <div className="text-center">
           <div className="spinner w-12 h-12 mx-auto mb-4" />
-          <p className="text-slate-400">Loading your audit resultsâ€¦</p>
+          <p className="text-slate-400">Loading your audit results...</p>
         </div>
       </div>
     );
   }
 
-  // â”€â”€ Error state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Error state
   if (error) {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center px-6">
@@ -319,7 +319,7 @@ export default function ResultsPage() {
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white">
               {isLowSavings
-                ? 'Your AI stack is already well optimized ðŸ‘'
+                ? 'Your AI stack is already well optimized'
                 : `We found ${formatCurrency(totalMonthlySavings)}/month in savings`}
             </h1>
           </motion.div>

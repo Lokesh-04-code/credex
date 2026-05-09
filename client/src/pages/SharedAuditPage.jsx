@@ -58,7 +58,7 @@ export default function SharedAuditPage() {
       <div className="min-h-screen hero-bg flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-brand-500/30 border-t-brand-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400 text-sm">Loading auditâ€¦</p>
+          <p className="text-slate-400 text-sm">Loading audit...</p>
         </div>
       </div>
     );

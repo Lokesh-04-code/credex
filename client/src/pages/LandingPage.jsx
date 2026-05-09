@@ -219,7 +219,7 @@ export default function LandingPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-white mb-2">What Teams Are Finding</h2>
             <p className="text-slate-500 text-sm">
-              âš ï¸ Illustrative examples based on common audit patterns - not verified testimonials
+              Note: Illustrative examples based on common audit patterns - not verified testimonials
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
