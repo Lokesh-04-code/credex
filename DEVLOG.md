@@ -16,7 +16,7 @@ Realistic 7-day build log simulating the iterative development of this product.
 - Configured Prisma with Supabase PostgreSQL and verified migrations locally.
 - Added initial environment configuration and backend middleware setup.
 - also developed the audit engine rules.
--built the basic level project
+- built the basic level project
 
 **What I learned:**
 - Supabase connection pooling requires separate DATABASE_URL and DIRECT_URL values when using Prisma migrations.
