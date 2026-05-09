@@ -3,7 +3,7 @@ export default function StackSaverLogo({ size = 'md', showText = true, className
     sm: { mark: 'w-7 h-7', icon: 'w-4 h-4', text: 'text-sm' },
     md: { mark: 'w-9 h-9', icon: 'w-5 h-5', text: 'text-lg' },
     lg: { mark: 'w-16 h-16', icon: 'w-10 h-10', text: 'text-3xl' },
-    xl: { mark: 'w-24 h-24', icon: 'w-16 h-16', text: 'text-5xl md:text-6xl' },
+    xl: { mark: 'w-20 h-20 sm:w-24 sm:h-24', icon: 'w-12 h-12 sm:w-16 sm:h-16', text: 'text-4xl sm:text-5xl md:text-6xl' },
   };
   const current = sizes[size] || sizes.md;
 

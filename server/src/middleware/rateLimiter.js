@@ -31,7 +31,7 @@ const generalLimiter = rateLimit({
  */
 const auditLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10,
+  max: 500, // increased limit to allow more audits per IP
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many audits created. Please wait 15 minutes.', code: 'RATE_LIMITED' },

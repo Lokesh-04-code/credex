@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Plus, Minus, ChevronLeft, ArrowRight, Info } from 'lucide-react';
+import { Check, Plus, Minus, ChevronLeft, ArrowRight, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import useAuditStore from '../store/auditStore';
@@ -10,30 +10,30 @@ import { TOOL_LIST, USE_CASES } from '../constants/tools';
 import { auditApi } from '../services/api';
 import StackSaverLogo from '../components/StackSaverLogo';
 
-// â”€â”€â”€ Tool Card Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Tool Card Component
 
 function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
   return (
     <div
       className={`glass-card transition-all duration-200 overflow-hidden ${
-        isSelected ? 'border-brand-500/50 shadow-glow-sm' : 'hover:border-white/20'
+        isSelected ? 'border-brand-400/60 bg-gradient-to-br from-brand-500/12 to-sky-500/8 shadow-glow-sm' : 'hover:border-white/20'
       }`}
     >
       <button
         type="button"
         id={`tool-toggle-${tool.id}`}
         onClick={() => onToggle(tool.id)}
-        className="w-full flex items-center justify-between p-4 text-left"
+        className="w-full flex items-center justify-between gap-3 p-4 text-left"
         aria-pressed={isSelected}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-3">
           <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold transition-colors ${
-            isSelected ? 'bg-brand-600 text-white' : 'bg-white/8 text-slate-400'
+            isSelected ? 'bg-gradient-to-br from-brand-500 to-sky-500 text-white shadow-lg shadow-brand-900/30' : 'bg-white/8 text-slate-400'
           }`}>
-            {isSelected ? 'âœ“' : tool.logo}
+            {isSelected ? <Check className="w-5 h-5" /> : tool.logo}
           </div>
-          <div>
-            <div className="font-semibold text-white text-sm">{tool.name}</div>
+          <div className="min-w-0">
+            <div className="truncate font-semibold text-white text-sm">{tool.name}</div>
             <div className="text-xs text-slate-500 capitalize">{tool.category}</div>
           </div>
         </div>
@@ -44,7 +44,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
         </div>
       </button>
 
-      {/* Plan + Spend fields â€” shown when selected */}
+      {/* Plan + Spend fields shown when selected */}
       <AnimatePresence>
         {isSelected && (
           <motion.div
@@ -61,13 +61,13 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
                 id={`plan-${tool.id}`}
                 value={entry?.plan || ''}
                 onChange={(e) => onUpdate(tool.id, 'plan', e.target.value)}
-                className="form-input bg-surface-900"
+                className="form-select-dark"
                 required={isSelected}
               >
-                <option value="">Select planâ€¦</option>
+                <option value="">Select plan</option>
                 {tool.plans.map((plan) => (
                   <option key={plan.id} value={plan.id}>
-                    {plan.label}{plan.price > 0 ? ` â€” $${plan.price}/seat/mo` : ''}
+                    {plan.label}{plan.price > 0 ? ` - $${plan.price}/seat/mo` : ''}
                   </option>
                 ))}
               </select>
@@ -103,7 +103,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
                   type="button"
                   id={`seats-dec-${tool.id}`}
                   onClick={() => onUpdate(tool.id, 'seats', Math.max(1, (entry?.seats || 1) - 1))}
-                  className="w-9 h-9 rounded-lg bg-white/8 hover:bg-white/12 flex items-center justify-center text-slate-300 transition-colors"
+                  className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/8 hover:bg-white/12 flex items-center justify-center text-slate-300 transition-colors"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
@@ -114,13 +114,13 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
                   onChange={(e) => onUpdate(tool.id, 'seats', parseInt(e.target.value) || 1)}
                   min="1"
                   max="10000"
-                  className="form-input text-center w-20"
+                  className="form-input text-center w-24 sm:w-20"
                 />
                 <button
                   type="button"
                   id={`seats-inc-${tool.id}`}
                   onClick={() => onUpdate(tool.id, 'seats', (entry?.seats || 1) + 1)}
-                  className="w-9 h-9 rounded-lg bg-white/8 hover:bg-white/12 flex items-center justify-center text-slate-300 transition-colors"
+                  className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/8 hover:bg-white/12 flex items-center justify-center text-slate-300 transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -133,7 +133,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
   );
 }
 
-// â”€â”€â”€ Audit Form Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Audit Form Page
 
 export default function AuditFormPage() {
   const navigate = useNavigate();
@@ -205,10 +205,10 @@ export default function AuditFormPage() {
 
       <div className="min-h-screen hero-bg">
         {/* Header */}
-        <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto border-b border-white/5">
+        <nav className="flex flex-wrap items-center justify-between gap-3 px-4 py-5 sm:px-6 max-w-5xl mx-auto border-b border-white/5">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
+            className="flex min-w-0 items-center gap-2 text-slate-400 hover:text-white transition-colors"
             id="back-to-home"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -217,19 +217,19 @@ export default function AuditFormPage() {
 
           {/* Live counter */}
           {estimatedMonthly > 0 && (
-            <div className="text-sm text-slate-400">
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-400 sm:text-sm">
               Reporting <span className="text-white font-semibold">${estimatedMonthly.toFixed(0)}/mo</span>
             </div>
           )}
         </nav>
 
-        <form onSubmit={handleSubmit} className="max-w-5xl mx-auto px-6 py-12">
+        <form onSubmit={handleSubmit} className="max-w-5xl mx-auto px-4 py-10 sm:px-6 sm:py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-10"
           >
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
               Which AI tools does your team use?
             </h1>
             <p className="text-slate-400">
@@ -298,9 +298,9 @@ export default function AuditFormPage() {
                   id="use-case"
                   value={primaryUseCase}
                   onChange={(e) => setPrimaryUseCase(e.target.value)}
-                  className="form-input bg-surface-900"
+                  className="form-select-dark"
                 >
-                  <option value="">Select use caseâ€¦</option>
+                  <option value="">Select use case</option>
                   {USE_CASES.map((uc) => (
                     <option key={uc.id} value={uc.id}>{uc.label}</option>
                   ))}
@@ -325,7 +325,7 @@ export default function AuditFormPage() {
               {submitting ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Running Auditâ€¦
+                  Running Audit...
                 </>
               ) : (
                 <>
@@ -335,7 +335,7 @@ export default function AuditFormPage() {
             </button>
 
             {totalSelectedWithPlan === 0 && (
-              <p className="text-slate-500 text-sm">
+              <p className="w-full text-center text-slate-500 text-sm sm:w-auto sm:text-left">
                 Select at least one tool and choose a plan to continue
               </p>
             )}
@@ -345,4 +345,5 @@ export default function AuditFormPage() {
     </>
   );
 }
+
 
