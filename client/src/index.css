@@ -102,6 +102,25 @@
   .spinner {
     @apply rounded-full border-2 border-white/30 border-t-white animate-spin;
   }
+
+  .stack-logo-mark {
+    @apply relative grid place-items-center overflow-hidden rounded-xl bg-gradient-to-br from-brand-400 via-brand-600 to-emerald-500 shadow-glow;
+  }
+
+  .stack-logo-mark::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 0.7rem;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.26), rgba(255,255,255,0)),
+      rgba(15,23,42,0.12);
+  }
+
+  .stack-logo-mark svg {
+    position: relative;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.24));
+  }
 }
 
 @layer utilities {

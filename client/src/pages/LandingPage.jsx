@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap, TrendingDown, Share2, Shield, CheckCircle, ChevronDown } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import StackSaverLogo from '../components/StackSaverLogo';
 
 const stats = [
   { value: '$2,400+', label: 'Avg. annual savings found' },
@@ -28,14 +29,14 @@ const features = [
   {
     icon: Share2,
     title: 'Share with Your Team',
-    description: 'Every audit gets a unique public URL you can share with your manager or board — no account needed.',
+    description: 'Every audit gets a unique public URL you can share with your manager or board - no account needed.',
   },
 ];
 
 const faqs = [
   {
     q: 'Is my data private?',
-    a: 'Yes. Your email is only collected after you choose to receive results. The public share URL strips all personal data — it only shows tools and savings.',
+    a: 'Yes. Your email is only collected after you choose to receive results. The public share URL strips all personal data - it only shows tools and savings.',
   },
   {
     q: 'How accurate are the savings estimates?',
@@ -70,9 +71,9 @@ export default function LandingPage() {
   return (
     <>
       <Helmet>
-        <title>AI Spend Audit — Find Hidden Savings in Your AI Tool Stack</title>
+        <title>Stack Saver - Find Hidden Savings in Your AI Tool Stack</title>
         <meta name="description" content="Audit your AI tool spending in under 3 minutes. Find overspend, downgrade opportunities, and consolidation savings across Cursor, Copilot, Claude, ChatGPT, and more." />
-        <meta property="og:title" content="AI Spend Audit — Stop Overpaying for AI Tools" />
+        <meta property="og:title" content="Stack Saver - Stop Overpaying for AI Tools" />
         <meta property="og:description" content="Free audit tool for startup founders and engineering managers. Find hidden savings in your AI tool stack." />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
@@ -80,12 +81,7 @@ export default function LandingPage() {
       <div className="min-h-screen hero-bg noise-overlay relative">
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
-              <Zap className="w-4 h-4 text-white animate-spin-slow" />
-            </div>
-            <span className="font-bold text-white text-lg">AI Spend Audit</span>
-          </div>
+          <StackSaverLogo />
           <Link
             to="/audit"
             id="nav-cta-btn"
@@ -218,12 +214,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Social Proof — clearly marked as illustrative */}
+        {/* Social Proof - clearly marked as illustrative */}
         <section className="relative z-10 max-w-6xl mx-auto px-6 py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-white mb-2">What Teams Are Finding</h2>
             <p className="text-slate-500 text-sm">
-              ⚠️ Illustrative examples based on common audit patterns — not verified testimonials
+              âš ï¸ Illustrative examples based on common audit patterns - not verified testimonials
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -292,12 +288,14 @@ export default function LandingPage() {
         {/* Footer */}
         <footer className="relative z-10 border-t border-white/5 py-8 px-6 text-center">
           <p className="text-slate-600 text-sm">
-            © 2025 AI Spend Audit · Built by{' '}
+            Copyright 2025 Stack Saver | Built by{' '}
             <a href="https://credex.ai" className="text-brand-500 hover:text-brand-400">Credex</a>
-            {' '}· Pricing data verified from official vendor pages
+            {' '}| Pricing data verified from official vendor pages
           </p>
         </footer>
       </div>
     </>
   );
 }
+
+

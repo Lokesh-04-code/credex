@@ -1,15 +1,16 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Zap, Plus, Minus, ChevronLeft, ArrowRight, Info } from 'lucide-react';
+import { Plus, Minus, ChevronLeft, ArrowRight, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import useAuditStore from '../store/auditStore';
 import { TOOL_LIST, USE_CASES } from '../constants/tools';
 import { auditApi } from '../services/api';
+import StackSaverLogo from '../components/StackSaverLogo';
 
-// ─── Tool Card Component ───────────────────────────────────────────────────
+// â”€â”€â”€ Tool Card Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
   return (
@@ -29,7 +30,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
           <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold transition-colors ${
             isSelected ? 'bg-brand-600 text-white' : 'bg-white/8 text-slate-400'
           }`}>
-            {isSelected ? '✓' : tool.logo}
+            {isSelected ? 'âœ“' : tool.logo}
           </div>
           <div>
             <div className="font-semibold text-white text-sm">{tool.name}</div>
@@ -43,7 +44,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
         </div>
       </button>
 
-      {/* Plan + Spend fields — shown when selected */}
+      {/* Plan + Spend fields â€” shown when selected */}
       <AnimatePresence>
         {isSelected && (
           <motion.div
@@ -63,10 +64,10 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
                 className="form-input bg-surface-900"
                 required={isSelected}
               >
-                <option value="">Select plan…</option>
+                <option value="">Select planâ€¦</option>
                 {tool.plans.map((plan) => (
                   <option key={plan.id} value={plan.id}>
-                    {plan.label}{plan.price > 0 ? ` — $${plan.price}/seat/mo` : ''}
+                    {plan.label}{plan.price > 0 ? ` â€” $${plan.price}/seat/mo` : ''}
                   </option>
                 ))}
               </select>
@@ -132,7 +133,7 @@ function ToolCard({ tool, isSelected, onToggle, entry, onUpdate }) {
   );
 }
 
-// ─── Audit Form Page ──────────────────────────────────────────────────────────
+// â”€â”€â”€ Audit Form Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function AuditFormPage() {
   const navigate = useNavigate();
@@ -198,7 +199,7 @@ export default function AuditFormPage() {
   return (
     <>
       <Helmet>
-        <title>Audit Form — AI Spend Audit</title>
+        <title>Audit Form - Stack Saver</title>
         <meta name="description" content="Enter your AI tools, plans, and spend to get a personalized savings audit." />
       </Helmet>
 
@@ -211,12 +212,7 @@ export default function AuditFormPage() {
             id="back-to-home"
           >
             <ChevronLeft className="w-4 h-4" />
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-brand-600 flex items-center justify-center">
-                <Zap className="w-3 h-3 text-white" />
-              </div>
-              <span className="font-semibold text-white text-sm">AI Spend Audit</span>
-            </div>
+            <StackSaverLogo size="sm" />
           </button>
 
           {/* Live counter */}
@@ -304,7 +300,7 @@ export default function AuditFormPage() {
                   onChange={(e) => setPrimaryUseCase(e.target.value)}
                   className="form-input bg-surface-900"
                 >
-                  <option value="">Select use case…</option>
+                  <option value="">Select use caseâ€¦</option>
                   {USE_CASES.map((uc) => (
                     <option key={uc.id} value={uc.id}>{uc.label}</option>
                   ))}
@@ -329,7 +325,7 @@ export default function AuditFormPage() {
               {submitting ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Running Audit…
+                  Running Auditâ€¦
                 </>
               ) : (
                 <>
@@ -349,3 +345,4 @@ export default function AuditFormPage() {
     </>
   );
 }
+

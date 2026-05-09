@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -18,8 +18,9 @@ import {
   SEVERITY_CONFIG, RECOMMENDATION_TYPE_LABELS, HIGH_SAVINGS_THRESHOLD
 } from '../constants/tools';
 import GlassCard from '../components/GlassCard';
+import StackSaverLogo from '../components/StackSaverLogo';
 
-// ─── Savings Summary Card ────────────────────────────────────────────────────
+// â”€â”€â”€ Savings Summary Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function SavingsSummary({ monthly, annual, recommendationCount }) {
   const severity = getSavingsSeverity(monthly);
@@ -49,7 +50,7 @@ function SavingsSummary({ monthly, annual, recommendationCount }) {
   );
 }
 
-// ─── Recommendation Card ─────────────────────────────────────────────────────
+// â”€â”€â”€ Recommendation Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function RecommendationCard({ rec, index }) {
   const severityConfig = SEVERITY_CONFIG[rec.severity] || SEVERITY_CONFIG.low;
@@ -82,13 +83,13 @@ function RecommendationCard({ rec, index }) {
         <div>
           <div className="text-xs text-slate-600 mb-1">Monthly Savings</div>
           <div className="font-semibold text-emerald-400">
-            {rec.estimatedMonthlySavings > 0 ? `−${formatCurrency(rec.estimatedMonthlySavings)}` : '—'}
+            {rec.estimatedMonthlySavings > 0 ? `âˆ’${formatCurrency(rec.estimatedMonthlySavings)}` : '-'}
           </div>
         </div>
         <div>
           <div className="text-xs text-slate-600 mb-1">Annual Savings</div>
           <div className="font-semibold text-emerald-400">
-            {rec.estimatedAnnualSavings > 0 ? `−${formatCurrency(rec.estimatedAnnualSavings)}` : '—'}
+            {rec.estimatedAnnualSavings > 0 ? `âˆ’${formatCurrency(rec.estimatedAnnualSavings)}` : '-'}
           </div>
         </div>
       </div>
@@ -96,7 +97,7 @@ function RecommendationCard({ rec, index }) {
   );
 }
 
-// ─── Lead Capture Form ────────────────────────────────────────────────────────
+// â”€â”€â”€ Lead Capture Form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function LeadCaptureForm({ auditId, onSuccess }) {
   const [formData, setFormData] = useState({ email: '', company: '', role: '', teamSize: '' });
@@ -133,7 +134,7 @@ function LeadCaptureForm({ auditId, onSuccess }) {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Honeypot — hidden from real users */}
+        {/* Honeypot - hidden from real users */}
         <input type="text" name="website" tabIndex="-1" aria-hidden="true" className="sr-only" />
 
         <div>
@@ -195,7 +196,7 @@ function LeadCaptureForm({ auditId, onSuccess }) {
   );
 }
 
-// ─── Results Page ─────────────────────────────────────────────────────────────
+// â”€â”€â”€ Results Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function ResultsPage() {
   const { shareId } = useParams();
@@ -234,19 +235,19 @@ export default function ResultsPage() {
     }
   };
 
-  // ── Loading skeleton ─────────────────────────────────────────────────────
+  // â”€â”€ Loading skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (loading) {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center">
         <div className="text-center">
           <div className="spinner w-12 h-12 mx-auto mb-4" />
-          <p className="text-slate-400">Loading your audit results…</p>
+          <p className="text-slate-400">Loading your audit resultsâ€¦</p>
         </div>
       </div>
     );
   }
 
-  // ── Error state ──────────────────────────────────────────────────────────
+  // â”€â”€ Error state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (error) {
     return (
       <div className="min-h-screen hero-bg flex items-center justify-center px-6">
@@ -270,9 +271,9 @@ export default function ResultsPage() {
   return (
     <>
       <Helmet>
-        <title>Your AI Spend Audit Results — {formatCurrency(totalMonthlySavings)}/mo in savings found</title>
-        <meta name="description" content={`AI spend audit found ${formatCurrency(totalMonthlySavings)}/month in potential savings (${formatCurrency(totalAnnualSavings)}/year).`} />
-        <meta property="og:title" content={`AI Spend Audit — ${formatCurrency(totalMonthlySavings)}/mo savings identified`} />
+        <title>Stack Saver Results - {formatCurrency(totalMonthlySavings)}/mo in savings found</title>
+        <meta name="description" content={`Stack Saver found ${formatCurrency(totalMonthlySavings)}/month in potential savings (${formatCurrency(totalAnnualSavings)}/year).`} />
+        <meta property="og:title" content={`Stack Saver - ${formatCurrency(totalMonthlySavings)}/mo savings identified`} />
         <meta property="og:description" content={`${recommendations.length} recommendations found. ${formatCurrency(totalAnnualSavings)}/year potential savings.`} />
         <meta property="og:url" content={shareUrl} />
         <meta name="twitter:card" content="summary" />
@@ -282,10 +283,7 @@ export default function ResultsPage() {
         {/* Header */}
         <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto border-b border-white/5">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-brand-600 flex items-center justify-center">
-              <Zap className="w-3.5 h-3.5 text-white" />
-            </div>
-            <span className="font-bold text-white text-sm">AI Spend Audit</span>
+            <StackSaverLogo size="sm" />
           </Link>
 
           <div className="flex items-center gap-3">
@@ -321,7 +319,7 @@ export default function ResultsPage() {
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white">
               {isLowSavings
-                ? 'Your AI stack is already well optimized 👏'
+                ? 'Your AI stack is already well optimized ðŸ‘'
                 : `We found ${formatCurrency(totalMonthlySavings)}/month in savings`}
             </h1>
           </motion.div>
@@ -443,7 +441,7 @@ export default function ResultsPage() {
                   <span className="text-sm font-semibold text-white">Share This Audit</span>
                 </div>
                 <p className="text-xs text-slate-500 mb-3">
-                  Public link — strips personal details, shows only tools + savings.
+                  Public link - strips personal details, shows only tools + savings.
                 </p>
                 <div className="flex items-center gap-2 bg-surface-900 rounded-lg p-2 text-xs text-slate-400 font-mono break-all mb-3">
                   {shareUrl}
@@ -472,3 +470,5 @@ export default function ResultsPage() {
     </>
   );
 }
+
+

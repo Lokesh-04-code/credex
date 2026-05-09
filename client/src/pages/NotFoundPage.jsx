@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Home, Zap, ArrowRight } from 'lucide-react';
+import { Home, ArrowRight } from 'lucide-react';
+import StackSaverLogo from '../components/StackSaverLogo';
 
 export default function NotFoundPage() {
   return (
     <>
       <Helmet>
-        <title>404 — Page Not Found · AI Spend Audit</title>
-        <meta name="description" content="This page doesn't exist. Run a free AI spend audit instead." />
+        <title>404 - Page Not Found · Stack Saver</title>
+        <meta name="description" content="This page doesn't exist. Run a free Stack Saver audit instead." />
       </Helmet>
 
       <div className="min-h-screen hero-bg flex flex-col items-center justify-center px-6 text-center">
@@ -35,13 +36,12 @@ export default function NotFoundPage() {
         </motion.div>
 
         {/* Subtle brand link */}
-        <div className="mt-16 flex items-center gap-2 text-slate-600">
-          <div className="w-5 h-5 rounded bg-brand-600/50 flex items-center justify-center">
-            <Zap className="w-3 h-3 text-white/70" />
-          </div>
-          <span className="text-sm">AI Spend Audit</span>
+        <div className="mt-16 opacity-60">
+          <StackSaverLogo size="sm" />
         </div>
       </div>
     </>
   );
 }
+
+

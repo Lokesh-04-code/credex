@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 
 import LandingPage from './pages/LandingPage';
@@ -7,10 +9,22 @@ import AuditFormPage from './pages/AuditFormPage';
 import ResultsPage from './pages/ResultsPage';
 import SharedAuditPage from './pages/SharedAuditPage';
 import NotFoundPage from './pages/NotFoundPage';
+import SplashScreen from './components/SplashScreen';
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowSplash(false), 3000);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <HelmetProvider>
+      <AnimatePresence>
+        {showSplash && <SplashScreen />}
+      </AnimatePresence>
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/audit" element={<AuditFormPage />} />

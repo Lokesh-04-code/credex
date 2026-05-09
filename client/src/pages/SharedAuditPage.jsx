@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -13,11 +13,12 @@ import {
   formatCurrency, buildShareUrl, formatDate, getToolName, getSavingsSeverity
 } from '../utils/formatters';
 import { SEVERITY_CONFIG, RECOMMENDATION_TYPE_LABELS, HIGH_SAVINGS_THRESHOLD } from '../constants/tools';
+import StackSaverLogo from '../components/StackSaverLogo';
 
 /**
  * Public Shared Audit Page
  *
- * Loaded via /audit/:shareId — strips all private data.
+ * Loaded via /audit/:shareId - strips all private data.
  * Only shows: tools, savings totals, and recommendations.
  * Optimized for sharing with OG tags.
  */
@@ -57,7 +58,7 @@ export default function SharedAuditPage() {
       <div className="min-h-screen hero-bg flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-brand-500/30 border-t-brand-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400 text-sm">Loading audit…</p>
+          <p className="text-slate-400 text-sm">Loading auditâ€¦</p>
         </div>
       </div>
     );
@@ -81,7 +82,7 @@ export default function SharedAuditPage() {
   const severity = getSavingsSeverity(totalMonthlySavings);
   const isHighSavings = totalMonthlySavings >= HIGH_SAVINGS_THRESHOLD;
 
-  const ogTitle = `AI Spend Audit — ${formatCurrency(totalMonthlySavings)}/mo savings identified`;
+  const ogTitle = `Stack Saver - ${formatCurrency(totalMonthlySavings)}/mo savings identified`;
   const ogDescription = `${recommendations.length} optimization recommendations across ${tools.length} AI tool${tools.length !== 1 ? 's' : ''}. ${formatCurrency(totalAnnualSavings)}/year potential savings.`;
 
   return (
@@ -104,10 +105,7 @@ export default function SharedAuditPage() {
         {/* Header */}
         <nav className="flex items-center justify-between px-6 py-5 max-w-4xl mx-auto border-b border-white/5">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-brand-600 flex items-center justify-center">
-              <Zap className="w-3.5 h-3.5 text-white" />
-            </div>
-            <span className="font-bold text-white text-sm">AI Spend Audit</span>
+            <StackSaverLogo size="sm" />
           </Link>
 
           <div className="flex items-center gap-3">
@@ -138,7 +136,7 @@ export default function SharedAuditPage() {
           >
             <div className="text-slate-400 text-sm mb-3 flex items-center justify-center gap-2">
               <TrendingDown className="w-4 h-4" />
-              AI Spend Audit Results
+              Stack Saver Results
             </div>
             <div className={`text-7xl font-black mb-2 ${severity.color}`}>
               {formatCurrency(totalMonthlySavings)}
@@ -220,11 +218,11 @@ export default function SharedAuditPage() {
                   This team could save {formatCurrency(totalAnnualSavings)}/year
                 </h3>
                 <p className="text-slate-400 mb-6 text-sm">
-                  Audit your own AI tool stack — free, takes 3 minutes.
+                  Audit your own AI tool stack - free, takes 3 minutes.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link to="/audit" id="shared-cta-audit" className="btn-primary">
-                    Audit My AI Spend <Zap className="w-4 h-4" />
+                    Audit My Stack <Zap className="w-4 h-4" />
                   </Link>
                   <a
                     href="https://credex.ai?ref=ai-spend-audit-share"
@@ -242,10 +240,10 @@ export default function SharedAuditPage() {
                 <CheckCircle className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
                 <h3 className="text-xl font-bold text-white mb-2">Already well optimized!</h3>
                 <p className="text-slate-400 mb-6 text-sm">
-                  Run your own AI spend audit — it's free and takes 3 minutes.
+                  Run your own Stack Saver - it's free and takes 3 minutes.
                 </p>
                 <Link to="/audit" id="shared-cta-own-audit" className="btn-primary">
-                  Audit My Team's AI Spend <Zap className="w-4 h-4" />
+                  Audit My Team's Stack <Zap className="w-4 h-4" />
                 </Link>
               </>
             )}
@@ -255,3 +253,5 @@ export default function SharedAuditPage() {
     </>
   );
 }
+
+
