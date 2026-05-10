@@ -50,3 +50,30 @@ Realistic 7-day build log simulating the iterative development of this product.
 - try to implement better audit engine
 
 ---
+
+## Day 3 — 2026-05-10
+
+**Hours worked:** 5
+
+**What I did:**
+- Completed the shareable result URL feature — each audit now gets a unique public URL with PII stripped.
+- Built a dynamic OG image generator on the server (`sharp` + SVG template) that renders a branded 1200×630 PNG with the savings amount, tool count, and recommendation count.
+- Added `og:image`, `og:image:width/height`, and `twitter:card: summary_large_image` meta tags to both `SharedAuditPage` and `ResultsPage` for rich link previews on Twitter, LinkedIn, Slack, etc.
+- Created a new `SharePanel` component with OG image preview, copy-to-clipboard, one-click Tweet button (pre-composed text), LinkedIn share button, and native Web Share API support on mobile.
+- Fixed the share buttons alignment issue where the native Share button was overflowing outside the card.
+- Switched the Vite proxy target back to `localhost:4000` for local development.
+
+**What I learned:**
+- `lucide-react` does not export brand icons (Twitter, LinkedIn) — had to use inline SVGs instead.
+- Vite requires `.jsx` extension for files containing JSX syntax — a `.js` file with JSX will fail with a parse error.
+- `sharp` is a reliable cross-platform alternative to `canvas` for server-side image generation — converts SVG to PNG with no native build dependencies on Windows.
+
+**Blockers / what I'm stuck on:**
+- OG image previews won't be crawled by social platforms until the app is deployed to a public URL (Twitter/LinkedIn bots can't reach localhost).
+
+**Plan for tomorrow:**
+- Deploy the latest build to Render and verify OG image previews work on Twitter and LinkedIn.
+- Improve the audit engine with more granular pricing rules.
+- Make the UI more responsive on mobile devices.
+
+---
