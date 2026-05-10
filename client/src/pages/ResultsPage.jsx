@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import useAuditStore from '../store/auditStore';
 import { auditApi, leadsApi } from '../services/api';
 import {
-  formatCurrency, buildShareUrl, getSavingsSeverity,
+  formatCurrency, buildShareUrl, buildOgImageUrl, getSavingsSeverity,
   getToolName, formatDate
 } from '../utils/formatters';
 import {
@@ -19,6 +19,7 @@ import {
 } from '../constants/tools';
 import GlassCard from '../components/GlassCard';
 import StackSaverLogo from '../components/StackSaverLogo';
+import SharePanel from '../components/SharePanel';
 
 // Savings Summary Card
 
@@ -276,7 +277,11 @@ export default function ResultsPage() {
         <meta property="og:title" content={`Stack Saver - ${formatCurrency(totalMonthlySavings)}/mo savings identified`} />
         <meta property="og:description" content={`${recommendations.length} recommendations found. ${formatCurrency(totalAnnualSavings)}/year potential savings.`} />
         <meta property="og:url" content={shareUrl} />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content={buildOgImageUrl(shareId)} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={buildOgImageUrl(shareId)} />
       </Helmet>
 
       <div className="min-h-screen hero-bg">
@@ -434,30 +439,12 @@ export default function ResultsPage() {
                 </GlassCard>
               )}
 
-              {/* Share card */}
-              <GlassCard className="p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <Share2 className="w-4 h-4 text-brand-400" />
-                  <span className="text-sm font-semibold text-white">Share This Audit</span>
-                </div>
-                <p className="text-xs text-slate-500 mb-3">
-                  Public link - strips personal details, shows only tools + savings.
-                </p>
-                <div className="flex items-center gap-2 bg-surface-900 rounded-lg p-2 text-xs text-slate-400 font-mono break-all mb-3">
-                  {shareUrl}
-                </div>
-                <motion.button
-                  id="sidebar-copy-btn"
-                  onClick={handleCopyShare}
-                  whileTap={{ scale: 0.95 }}
-                  animate={copied ? { scale: [1, 1.03, 1], rotate: [0, 1, -1, 0] } : { scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.28 }}
-                  className="btn-ghost w-full text-sm py-2.5"
-                >
-                  {copied ? <CheckCircle className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  {copied ? 'Copied!' : 'Copy Share Link'}
-                </motion.button>
-              </GlassCard>
+              {/* Share Panel — OG preview + copy + social buttons */}
+              <SharePanel
+                shareId={shareId}
+                monthlySavings={totalMonthlySavings}
+                toolCount={data.tools ? data.tools.length : 0}
+              />
 
               {/* Start over */}
               <Link to="/audit" className="btn-ghost w-full text-sm py-2.5 block text-center">

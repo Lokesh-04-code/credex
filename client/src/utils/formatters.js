@@ -85,3 +85,14 @@ export function getToolName(toolId) {
 export function buildShareUrl(shareId) {
   return `${window.location.origin}/audit/${shareId}`;
 }
+
+/**
+ * Build the dynamic OG image URL for an audit
+ * Points to the server endpoint that returns a 1200×630 PNG.
+ * @param {string} shareId
+ * @returns {string}
+ */
+export function buildOgImageUrl(shareId) {
+  const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+  return `${apiBase}/api/audit/${shareId}/og-image`;
+}

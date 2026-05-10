@@ -9,6 +9,7 @@ const { PrismaClient } = require('@prisma/client');
 const { nanoid } = require('nanoid');
 const { runAudit } = require('../services/auditEngine');
 const { generateAiSummary } = require('../services/aiSummary');
+const { generateOgImage } = require('../services/ogImage');
 
 const prisma = new PrismaClient();
 
@@ -122,4 +123,45 @@ async function getAuditByShareId(req, res, next) {
   }
 }
 
-module.exports = { createAudit, getAuditByShareId };
+/**
+ * GET /api/audit/:shareId/og-image
+ * Returns a 1200×630 PNG Open Graph image for social sharing.
+ * Caches for 1 hour via Cache-Control so CDNs don't hammer the server.
+ */
+async function getAuditOgImage(req, res, next) {
+  try {
+    const { shareId } = req.params;
+
+    if (!shareId || shareId.length !== 10) {
+      return res.status(400).json({ error: 'Invalid share ID.', code: 'VALIDATION_ERROR' });
+    }
+
+    const audit = await prisma.audit.findUnique({
+      where: { shareId },
+      select: {
+        totalMonthlySavings: true,
+        totalAnnualSavings: true,
+        tools: true,
+        recommendations: true,
+      },
+    });
+
+    if (!audit) {
+      return res.status(404).json({ error: 'Audit not found.', code: 'NOT_FOUND' });
+    }
+
+    const png = await generateOgImage(audit);
+
+    res.set({
+      'Content-Type': 'image/png',
+      'Content-Length': png.length,
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
+    });
+
+    return res.send(png);
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { createAudit, getAuditByShareId, getAuditOgImage };

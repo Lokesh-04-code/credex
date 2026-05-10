@@ -1,0 +1,82 @@
+:root {
+  /* Dark Slate Background */
+  --color-bg: hsl(210, 10%, 12%);
+  /* Glass Surface with transparency */
+  --color-surface: hsla(210, 10%, 20%, 0.6);
+  --color-surface-hover: hsla(210, 10%, 25%, 0.8);
+  --color-surface-border: hsla(210, 10%, 30%, 0.5);
+
+  /* Accents */
+  --color-accent: hsl(170, 70%, 45%);     /* Teal */
+  --color-accent-hover: hsl(170, 80%, 55%);
+  --color-accent-fade: hsla(170, 70%, 45%, 0.1);
+
+  /* Status Colors */
+  --color-success: hsl(140, 60%, 45%);
+  --color-warning: hsl(40, 80%, 55%);
+  --color-error: hsl(350, 70%, 55%);
+
+  /* Typography Colors */
+  --color-text-primary: hsl(0, 0%, 95%);
+  --color-text-muted: hsl(0, 0%, 70%);
+
+  /* Radii */
+  --radius-medium: 0.75rem;
+  --radius-small: 0.5rem;
+  --radius-large: 1rem;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Typography Scale */
+  --font-base: 1rem;
+  --font-sm: 0.875rem;
+  --font-lg: 1.25rem;
+  --font-xl: 1.5rem;
+  --font-xxl: 2.5rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-slow: 300ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+  margin-top: 0;
+  font-weight: 700;
+}
+
+p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+* {
+  box-sizing: border-box;
+}

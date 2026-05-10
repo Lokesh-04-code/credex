@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 
 import { auditApi } from '../services/api';
 import {
-  formatCurrency, buildShareUrl, formatDate, getToolName, getSavingsSeverity
+  formatCurrency, buildShareUrl, buildOgImageUrl, formatDate, getToolName, getSavingsSeverity
 } from '../utils/formatters';
 import { SEVERITY_CONFIG, RECOMMENDATION_TYPE_LABELS, HIGH_SAVINGS_THRESHOLD } from '../constants/tools';
 import StackSaverLogo from '../components/StackSaverLogo';
@@ -94,10 +94,13 @@ export default function SharedAuditPage() {
         <meta property="og:description" content={ogDescription} />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content={buildOgImageUrl(shareId)} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDescription} />
-        {/* Canonical URL */}
+        <meta name="twitter:image" content={buildOgImageUrl(shareId)} />
         <link rel="canonical" href={shareUrl} />
       </Helmet>
 
