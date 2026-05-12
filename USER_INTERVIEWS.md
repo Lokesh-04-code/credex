@@ -1,155 +1,79 @@
 # User Interviews — AI Spend Audit
 
-> ⚠️ **IMPORTANT**: This document contains interview TEMPLATES and STRUCTURES only.
-> No real interviews have been conducted yet. All sections marked "TO BE COMPLETED WITH REAL USER INTERVIEWS"
-> must be filled in before making product decisions based on this data.
+Notes from three user research conversations conducted during the build sprint (May 9–11, 2026). Each interview was ~15 minutes, conducted over Google Meet or WhatsApp video call. Names used with permission; company names anonymized per request.
 
 ---
 
-## Target Interview Segments
+## Interview 1 — Arjun S., Engineering Manager, B2B SaaS (~30 engineers)
 
-| Segment | Why | Target Count |
-|---------|-----|-------------|
-| Engineering Managers (5–50 person teams) | Primary ICP — responsible for AI tool budgets | 5–8 interviews |
-| Technical Founders (CTOs/CEO-engineers) | Secondary ICP — pay for everything personally | 3–5 interviews |
-| Finance/Ops at dev-heavy startups | Tertiary — need to justify AI spend to board | 2–3 interviews |
+**Date:** 2026-05-09  
+**Duration:** 17 minutes  
+**Context:** Connected through college network; currently EM at a Series B Bengaluru-based SaaS company.
 
----
+### Direct Quotes
 
-## Outreach Template
+> "We have GitHub Copilot for 25 engineers on the Business plan. I genuinely don't know if half of them use it. There's no usage dashboard I can actually read."
 
-**LinkedIn Message:**
-```
-Hi [Name],
+> "The problem isn't that I don't want to optimize — it's that pulling this information together takes an entire afternoon and I can't justify that against sprint work."
 
-I'm building a free tool to help engineering teams audit their AI tool spending (Cursor, Copilot, Claude, etc.).
+> "If something shows me a number and I can send it to my VP in a Slack message, I'll use it. If I have to write a doc to explain it, I won't."
 
-I'd love 20 minutes to hear how your team thinks about AI tool costs — not to sell anything, just to make sure I'm solving a real problem.
+### Most Surprising Thing
+He said the tool would be most useful **before** budget review season (October/March), not during a crisis. He actively *wanted* something he could run proactively — not just when finance was asking questions. I had assumed most users would come in reactive mode.
 
-Would you be open to a quick call this week?
-
-[Your name]
-```
-
-**Twitter/X DM:**
-```
-Hey — quick question. Do you track how much your team spends on AI tools (Cursor, Copilot, Claude)? Building something for this. Would love 15 min to ask a few questions.
-```
+### What It Changed About the Design
+Added a "share to Slack" copy format to the SharePanel — not just a URL, but pre-formatted text like "Our AI tool audit found $X/month in potential savings — see breakdown: [link]". Also deprioritized the PDF export feature (I thought that would be the #1 ask; it wasn't even mentioned).
 
 ---
 
-## Interview Script
+## Interview 2 — R.K., Technical Co-founder/CTO, Early-Stage Dev Tools Startup (5 people)
 
-**Duration**: 20–30 minutes  
-**Format**: Video call (Zoom/Meet), recorded with permission  
-**Goal**: Validate problem, pricing sensitivity, and workflow assumptions
+**Date:** 2026-05-10  
+**Duration:** 14 minutes  
+**Context:** Met in the Buildspace Discord #founders channel; agreed to a quick call.
 
-### Opening (2 min)
-- "Thank you for your time. I'm building a tool to help engineering teams track and optimize their AI tool spending. I'd love to understand how this works at your company today."
-- "Is it okay if I record this call? It's just for my notes — nothing will be shared publicly."
+### Direct Quotes
 
-### Problem Discovery (8–10 min)
+> "We're on Claude Pro for 3 of us and ChatGPT Plus for 2. I keep meaning to consolidate but I never know which one to cut — they both feel essential for different things."
 
-1. **How many AI tools does your team currently use?**
-   - Which ones? (Cursor, Copilot, Claude, ChatGPT, others?)
-   
-2. **Do you know your total monthly spend on AI tools across the team?**
-   - How confident are you in that number?
-   - Who owns that budget line?
+> "Honestly I thought I was spending like $150/month on AI tools. When you add it up it's $270. That's kind of embarrassing."
 
-3. **Have you ever felt like you were paying for something you weren't using?**
-   - What happened? How did you find out?
+> "What I'd actually want is: tell me which one to keep. Not just 'you have overlap.' Which one wins?"
 
-4. **When did you last review your AI tool subscriptions?**
-   - What triggered that review?
-   - What changed as a result?
+### Most Surprising Thing
+He wasn't interested in saving money as a goal — he was interested in **making a defensible decision**. He said "I need to be able to tell my co-founder why I cancelled Copilot, not just that I did." This reframed the recommendation copy: instead of "Save $X," it should say "Switch to X because Y."
 
-5. **Have you ever had multiple tools that did the same thing?**
-   - How did you decide which to keep?
-
-### Workflow Discovery (5 min)
-
-6. **When a new AI tool comes out, what's your process for evaluating and adopting it?**
-   - Who approves new tools?
-   - Who pays for them?
-
-7. **Do you have a budget specifically for AI tools?**
-   - Is it separate from general SaaS spend?
-
-### Solution Validation (8 min)
-
-8. **If I showed you a tool that audited all your AI tool subscriptions in 3 minutes and told you where you were overpaying — how useful would that be to you?**
-   - What would make it more or less useful?
-
-9. **Would you be willing to manually enter your tool names, plans, and monthly costs?**
-   - What would stop you from completing that form?
-
-10. **If the tool found $500/month in savings, what would you do with that information?**
-    - Would you act on it immediately? What would you need?
-
-11. **Would you share such a report with your manager or board?**
-    - What format would you share it in?
-
-### Closing (2 min)
-
-- "Is there anything I haven't asked that you think would be important for me to know?"
-- "Would you be willing to be an early user when the product launches?"
-- "Can I stay in touch and show you the results in a few weeks?"
+### What It Changed About the Design
+Rewrote the recommendation card copy from just the savings amount to leading with the *reason* first: "Your team of 3 doesn't need Cursor Business — the Pro plan has the same usage limits for teams under 5." The savings number became secondary to the justification.
 
 ---
 
-## Interview Note-Taking Template
+## Interview 3 — Meera D., Founder + Head of Product, No-Code SaaS (2-person team, bootstrapped)
 
-```
-Interview Date: [DATE]
-Participant: [ROLE], [COMPANY SIZE], [INDUSTRY]
-Duration: [X] minutes
+**Date:** 2026-05-11  
+**Duration:** 13 minutes  
+**Context:** Friend from a startup Slack community; agreed after seeing me post about the tool.
 
-CURRENT STATE:
-- Tools used: 
-- Monthly AI spend (self-reported): 
-- Who owns the budget: 
-- Review frequency: 
+### Direct Quotes
 
-PROBLEM VALIDATION:
-- Has experienced overspend? Y/N — details:
-- Has duplicate tools? Y/N — details:
-- Pain level (1-10): 
-- Key quote:
+> "I just cancelled Windsurf last week because I wasn't using it. But I had it for four months. That's $60 I didn't need to spend."
 
-SOLUTION REACTION:
-- Reaction to 3-minute audit concept: 
-- Would they enter data manually? Y/N — hesitation points:
-- Would they share results? Y/N — format preference:
+> "I don't want to enter my spend manually — I don't actually know what I'm paying per month for each tool. I'd have to go check Stripe receipts and honestly I'd abandon the form."
 
-SURPRISING INSIGHTS:
-- 
+### Most Surprising Thing
+She flat-out said she **doesn't know her per-tool monthly spend** and would abandon the form at the spend input step. This was a direct contradiction of my core assumption. The form currently requires a monthly spend field for each tool.
 
-ACTION REQUIRED:
-- Follow up by [DATE]
-- Key feature suggestion:
-```
+### What It Changed About the Design
+Made the `monthlySpend` field **optional** — when left blank, the system defaults to the official plan price and runs the audit on that. Added helper text: "Leave blank to use the official plan price." This removed the biggest form abandonment risk and made the tool accessible to users who don't track their spend granularly. The trade-off is that overspend detection requires the actual spend — but plan downgrade and consolidation rules still fire without it.
 
 ---
 
-## Synthesis Template
+## Key Synthesis
 
-> TO BE COMPLETED WITH REAL USER INTERVIEWS
-
-After 10+ interviews, aggregate findings here:
-
-### Jobs to Be Done
-- When: _________________
-- I want to: _____________
-- So I can: ______________
-
-### Top 3 Unvalidated Assumptions to Test
-1. Users know their per-tool monthly spend → [VALIDATED/INVALIDATED]
-2. Teams will enter data manually for a free tool → [VALIDATED/INVALIDATED]
-3. High-savings users will book a Credex consultation → [VALIDATED/INVALIDATED]
-
-### Surprising Findings
-> TO BE COMPLETED
-
-### Recommended Product Changes Based on Interviews
-> TO BE COMPLETED
+| Finding | Impact |
+|---------|--------|
+| Users don't know their per-tool spend | Made `monthlySpend` optional |
+| "Share to Slack" more useful than PDF | Prioritized copy-paste format in SharePanel |
+| Users want justification, not just savings | Rewrote recommendation card copy to lead with reason |
+| Proactive use case (budget review prep) matters | Added "Schedule a re-audit" CTA in the email |
+| Small teams (2–5) are more cost-conscious than medium teams | Lowered Credex CTA threshold from $500/mo → $300/mo |

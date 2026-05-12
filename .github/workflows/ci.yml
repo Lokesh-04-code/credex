@@ -2,13 +2,14 @@ name: CI — AI Spend Audit
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  test-server:
-    name: Server Tests
+  # ── Job 1: Server tests ──────────────────────────────────────────────────
+  server-tests:
+    name: Server — Lint + Tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -28,13 +29,19 @@ jobs:
       - name: Install server dependencies
         run: npm ci
 
-      - name: Run server tests
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Run audit engine tests
         run: npm test
         env:
           NODE_ENV: test
 
-  lint-client:
-    name: Client Lint + Build Check
+  # ── Job 2: Client build check ────────────────────────────────────────────
+  # Note: Vite build validates all imports and JSX syntax errors.
+  # Full ESLint integration is tracked in: feat(client): add eslint config
+  client-build:
+    name: Client — Build Check
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,7 +51,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -54,7 +61,7 @@ jobs:
       - name: Install client dependencies
         run: npm ci
 
-      - name: Build client (validates no compile errors)
+      - name: Build client (validates no compile errors or dead imports)
         run: npm run build
         env:
-          VITE_API_URL: https://api.aispendaudit.com
+          VITE_API_URL: https://credex-api.onrender.com
