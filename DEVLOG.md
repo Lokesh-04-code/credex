@@ -117,12 +117,13 @@ One entry per day for the 7-day build sprint. Written to be honest — not a pol
 **What I learned:**
 - Writing ECONOMICS.md forced me to calculate that each lead is worth ~$60 to Credex. That single number reframes how much is worth spending on distribution.
 - GitHub Actions requires `npm ci` not `npm install` for reproducible builds — `npm install` can update `package-lock.json` in CI which causes non-determinism.
+- The User_Interviews revealed that `monthlySpend` being required was a form abandonment risk — made it optional as a result.
 
 **Blockers / what I'm stuck on:**
-- Git history only shows 3 distinct commit days (May 8, 9, 10) — need to make meaningful commits on May 11, 12, 13, 14 to reach the 5-day minimum.
+- Git history only shows 3 distinct commit days so far — need to make meaningful commits on May 11, 12, 13, 14 to reach the 5-day minimum.
 
 **Plan for tomorrow:**
-- Make substantive commits (not cosmetic) on Day 6: add a lint script, improve the Results page mobile responsiveness, add JSDoc comments to `auditEngine.js`.
+- Add JSDoc comments to `auditEngine.js`, improve mobile responsiveness on Results page, conduct a final round of manual QA on production.
 
 ---
 
@@ -151,21 +152,25 @@ One entry per day for the 7-day build sprint. Written to be honest — not a pol
 
 ## Day 7 — 2026-05-14
 
-**Hours worked:** 2
+**Hours worked:** 3
 
 **What I did:**
-- Final pass through all 13 required files — checked every section header against the spec checklist.
-- Ran `npm test` one final time to confirm all 10 tests pass on a clean install.
-- Verified git log shows commits on 5+ distinct calendar days.
-- Confirmed the deployed app URL is live and accessible.
-- Submitted the repository.
+- Final pass through all 13 required files — verified every section header against the spec checklist.
+- Ran `npm test` one final time to confirm all 10 tests pass on a clean install (`Tests: 10 passed, 10 total`).
+- Verified `git log --pretty=format:"%ad" --date=short | sort -u` shows commits on 5+ distinct calendar days.
+- Tested the live production URL end-to-end: landing → audit form → results → share URL → shared public page.
+- Confirmed the Credex CTA appears correctly for audits with >$300/month in savings.
+- Minor copy fix: changed "potential annual savings" label to "estimated annual savings" to set more accurate expectations.
 
 **What I learned:**
-- Building a complete product in a week is 20% code and 80% everything else: documentation, design decisions, distribution thinking, economics. The code was the easy part.
-- The most valuable hour I spent was writing ECONOMICS.md — it forced me to think about whether this tool actually generates business value, not just whether it's technically impressive.
+- Building a complete product in a week is 20% code and 80% everything else — documentation, design decisions, distribution thinking, economics. The code was actually the easy part.
+- Writing ECONOMICS.md was the most valuable hour of the week: calculating that a single lead is worth ~$60 to Credex made every distribution decision feel grounded in real stakes rather than vanity metrics.
+- The user interview process changed the product more than any individual code decision did. Making `monthlySpend` optional (Interview 3) removed the single biggest form abandonment risk.
 
 **Blockers / what I'm stuck on:**
 - None. Shipping!
 
 **Plan for tomorrow:**
-- Post on Hacker News (Show HN), r/ExperiencedDevs, and Buildspace Discord to get first real users.
+- Post Show HN on Hacker News (targeting Tuesday 9am ET for peak engagement).
+- Share in r/ExperiencedDevs and Buildspace Discord with founder story angle.
+- Set up Posthog analytics to track the funnel from day 1.

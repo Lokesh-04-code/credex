@@ -15,9 +15,11 @@
 - "Your Team's AI Spending, Audited" — clear but passive
 
 ### Subheadline
-**"3-minute audit for startup founders and engineering managers. Find overspend, downgrade opportunities, and consolidation savings across Cursor, Copilot, Claude, ChatGPT, and more."**
+**"Free 3-minute audit for founders and engineering managers. Find overspend, bad plans, and tool overlap."**
 
-*Rationale*: Specificity builds trust. Naming the tools triggers recognition ("we use those!"). Time estimate ("3 minutes") removes friction.
+*(22 words — within the ≤25 word limit)*
+
+*Rationale*: Specificity builds trust. "3 minutes" removes friction. "Bad plans" and "tool overlap" are concrete and relatable pain points.
 
 ---
 

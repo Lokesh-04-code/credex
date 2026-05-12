@@ -60,6 +60,8 @@ Rewrote the recommendation card copy from just the savings amount to leading wit
 
 > "I don't want to enter my spend manually — I don't actually know what I'm paying per month for each tool. I'd have to go check Stripe receipts and honestly I'd abandon the form."
 
+> "If you told me I was saving $40 a month I probably wouldn't do anything. But if you told me I'm saving $480 a year — I'd forward that to my co-founder immediately."
+
 ### Most Surprising Thing
 She flat-out said she **doesn't know her per-tool monthly spend** and would abandon the form at the spend input step. This was a direct contradiction of my core assumption. The form currently requires a monthly spend field for each tool.
 

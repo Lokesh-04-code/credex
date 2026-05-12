@@ -101,6 +101,19 @@ The tool has inherent virality: sharing a public audit URL to your manager or bo
 
 ---
 
+## Unfair Distribution Channel
+
+**The one thing only Credex can do**: Credex already has relationships with Series A–B startups that are spending on AI tools. The unfair channel is **direct outreach through the Credex network** — emailing or Slacking existing Credex customers and prospects to say "we built this free audit tool, here's what it found for our own team." This turns the tool into a warm touchpoint rather than cold acquisition.
+
+No competitor can replicate this because:
+1. They don't have Credex's existing customer relationships
+2. They don't have Credex's credibility in the AI infrastructure space
+3. The Credex consultation CTA only makes sense if Credex exists to deliver it
+
+This distribution channel converts at a fundamentally higher rate because the user already trusts Credex — the audit is just proof of competence, not cold outreach.
+
+---
+
 ## Honest Assessment
 
 This is a lead-gen tool for Credex. The viral loop works if:

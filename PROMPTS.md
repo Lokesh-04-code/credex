@@ -1,18 +1,18 @@
 # Prompts — AI Spend Audit
 
-Documentation of all AI prompt iterations, rationale, and fallback logic.
+Documentation of all AI prompt iterations, rationale, and fallback logic.  
 The AI is used ONLY for narrative summary generation — NOT for financial calculations.
 
 ---
 
 ## Current Production Prompt (v3)
 
-### System Context
-No system prompt is used. All instructions are in the user message to reduce token overhead with Claude 3.5 Haiku.
+### AI Provider
+The project uses Antigravity AI tools for prompt testing and AI-generated audit summaries.
 
 ### User Prompt (v3 — Production)
 
-```
+```txt
 You are an AI spend optimization expert writing a concise audit summary for a startup founder or engineering manager.
 
 IMPORTANT RULES:
@@ -35,77 +35,87 @@ Write the summary now:
 ```
 
 ### Why This Structure Works
-1. **Role instruction first**: Grounding the model in a specific expert role reduces generic output
-2. **Explicit rules block**: Numbered constraints are more reliable than prose instructions
-3. **Word count constraint**: Prevents the model from padding with qualifications that introduce errors
-4. **"USE THESE EXACT NUMBERS"**: Reduces hallucination — Claude respects explicit data injection
-5. **No system prompt**: Haiku performs better with all instructions in the user turn
-6. **Ends with action instruction**: Ensures the output has a clear closing CTA
+1. Role-based prompting improves consistency and relevance
+2. Explicit rules reduce hallucinations and number changes
+3. Word count limits keep responses concise
+4. Conversational tone instructions improve readability
+5. Action-oriented endings make summaries more useful
 
 ---
 
 ## Failed Prompt Attempts
 
 ### v1 — Original (Abandoned)
-**Problem**: The model kept approximating or rounding the provided numbers. A $347/month savings would become "approximately $350" or sometimes "around $300".
 
-```
-You are a financial advisor helping a startup optimize their AI tool spending.
-Based on the following audit data, write a 100-word summary:
+**Problem:**  
+The AI rounded savings values and sometimes generated unnecessary text or inconsistent recommendations.
+
+```txt
+You are a financial advisor helping a startup optimize AI tool spending.
+
+Write a short summary using this audit data:
 
 Tools: {toolList}
-Total monthly savings: ${totalMonthlySavings}
+Savings: ${totalMonthlySavings}
 Recommendations: {recommendations}
-
-Focus on the most important savings opportunities and give actionable advice.
 ```
 
-**Root cause**: The prompt didn't explicitly prohibit approximation. Claude defaults to natural language patterns that round numbers. Also, injecting the full recommendations array as JSON caused the model to re-interpret the data.
+**Root cause:**  
+- No restriction against approximating numbers
+- Prompt was too generic
+- Passing recommendation arrays caused inconsistent outputs
 
 ---
 
 ### v2 — Intermediate (Abandoned)
-**Problem**: Output was too formal and corporate-sounding. Used phrases like "pursuant to our analysis" and "we strongly recommend implementation of the aforementioned strategies".
 
-```
-Role: Expert AI infrastructure cost analyst
-Task: Generate a professional audit summary
+**Problem:**  
+Responses sounded too formal and corporate.
 
-[AUDIT DATA]
-Team: {teamSize} people, {primaryUseCase} use case
-Stack: {toolList}
-Savings opportunity: ${totalMonthlySavings}/month (${totalAnnualSavings}/year)
-Recommendations: {recommendationCount} identified
+```txt
+Role: AI infrastructure analyst
 
-Write an executive summary in exactly 100 words. Be precise and professional.
+Generate an executive summary using:
+- Team size
+- Savings opportunity
+- Recommendations
 ```
 
-**Root cause**: The word "executive summary" + "professional" primed Claude for corporate language. Fixed in v3 by adding "like a knowledgeable advisor, not a robot" which significantly improves tone.
+**Root cause:**  
+- The phrase "executive summary" encouraged overly corporate language
+- Missing conversational tone instructions
 
 ---
 
 ## Fallback Logic
 
-If the Anthropic API call fails (network error, rate limit, missing API key, empty response), the system falls back to `generateFallbackSummary()` in `aiSummary.js`.
+If the AI request fails because of:
+- Network issues
+- API failures
+- Rate limits
+- Empty responses
 
-The fallback uses two branches:
-1. **Low/zero savings** (< $10/mo): Emphasizes the positive — the stack is well-optimized
-2. **Meaningful savings**: Structures output as [savings amount] → [top action] → [total count]
+the backend switches to a fallback summary generator.
 
-The fallback is deterministic and always accurate — it only uses data already computed by the audit engine.
+### Fallback Behavior
+1. Low savings → explains the stack is already optimized
+2. Higher savings → highlights key optimization opportunities
 
-### Fallback Quality Assessment
-The fallback output is about 70% as good as the AI output. It's factually accurate but lacks the personalized tone. For the MVP this is acceptable — we surface the `source: 'fallback'` in the API response for debugging but don't expose this distinction to end users.
+The fallback summary is deterministic and uses only audit-engine-generated values.
+
+### Fallback Quality
+The fallback output is less personalized than the AI version but remains factually accurate and reliable for production usage.
 
 ---
 
 ## Hallucination Prevention Measures
 
-1. **Exact numbers as strings**: Numbers are injected as formatted strings (`$347`), not raw integers that the model might process mathematically
-2. **Explicit prohibition**: "do NOT invent or estimate numbers"
-3. **Scoped instruction**: "Do not make up tools, plans, or recommendations not listed below"
-4. **Word count constraint**: Short outputs have fewer opportunities for creative elaboration
-5. **Post-processing validation**: We don't validate the AI output (impractical), but the positioning of the AI summary as "analysis" (not "facts") sets user expectations correctly
+1. Exact-number instructions
+2. Structured audit input formatting
+3. Restricted recommendation scope
+4. Short response length
+5. Backend-generated savings calculations
+6. Explicit instruction not to invent tools or pricing
 
 ---
 
@@ -113,11 +123,12 @@ The fallback output is about 70% as good as the AI output. It's factually accura
 
 | Model | Pros | Cons | Decision |
 |-------|------|------|----------|
-| Claude 3.5 Haiku | Fastest, cheapest, great instruction-following | Less nuanced than Sonnet | ✅ **Chosen** |
-| Claude 3.5 Sonnet | Better prose quality | 4× more expensive, slower | ❌ Overkill for 100 words |
-| GPT-4o mini | Good, cheap | Worse instruction-following than Haiku | ❌ Not chosen |
+| **Groq — Llama 3.3 70B** | Extremely fast (~200ms), free tier available, good instruction-following | Less nuanced prose than Claude | ✅ **Primary (prod)** |
+| Claude 3.5 Haiku | Best instruction-following, great prose quality | Requires paid Anthropic key, ~500ms | ✅ **Fallback option** |
+| GPT-4o mini | Cheap, good | Weaker instruction-following for structured prompts | ❌ Not chosen |
+| Claude 3.5 Sonnet | Highest quality prose | 4× more expensive, slower | ❌ Overkill for 100 words |
 
-Haiku at `max_tokens: 256` for a 100-word output costs approximately $0.001 per audit. At 10k audits/day: ~$10/day in API costs — well within unit economics.
+Groq's speed (sub-200ms) makes it ideal for a tool where the audit result page loads with the AI summary already present — no loading state needed. At 10k audits/day, Groq's free tier (14,400 req/day) covers initial scale; Anthropic is the paid fallback.
 
 ---
 
@@ -125,6 +136,6 @@ Haiku at `max_tokens: 256` for a 100-word output costs approximately $0.001 per 
 
 | Version | Date | Status | Key Change |
 |---------|------|--------|-----------|
-| v1 | 2025-05-02 | ❌ Abandoned | Original |
-| v2 | 2025-05-03 | ❌ Abandoned | Added role + structure |
-| v3 | 2025-05-04 | ✅ Production | "EXACT numbers" + tone instructions |
+| v1 | 2026-05-02 | ❌ Abandoned | Basic summary prompt |
+| v2 | 2026-05-03 | ❌ Abandoned | Added role-based prompting |
+| v3 | 2026-05-04 | ✅ Production | Added exact-number and tone constraints |
