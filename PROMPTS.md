@@ -121,14 +121,9 @@ The fallback output is less personalized than the AI version but remains factual
 
 ## Model Selection Rationale
 
-| Model | Pros | Cons | Decision |
-|-------|------|------|----------|
-| **Groq — Llama 3.3 70B** | Extremely fast (~200ms), free tier available, good instruction-following | Less nuanced prose than Claude | ✅ **Primary (prod)** |
-| Claude 3.5 Haiku | Best instruction-following, great prose quality | Requires paid Anthropic key, ~500ms | ✅ **Fallback option** |
-| GPT-4o mini | Cheap, good | Weaker instruction-following for structured prompts | ❌ Not chosen |
-| Claude 3.5 Sonnet | Highest quality prose | 4× more expensive, slower | ❌ Overkill for 100 words |
-
-Groq's speed (sub-200ms) makes it ideal for a tool where the audit result page loads with the AI summary already present — no loading state needed. At 10k audits/day, Groq's free tier (14,400 req/day) covers initial scale; Anthropic is the paid fallback.
+| Tool | Reason |
+|------|--------|
+| Antigravity AI Tools | Fast prompt testing and reliable summary generation |
 
 ---
 
